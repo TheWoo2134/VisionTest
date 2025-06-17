@@ -5983,15 +5983,14 @@ function Library:Destroy()
 end
 
 
-
-
+-- VisionLibV2 Final Compatibility Fix for Mobile/Emu
 return function()
     task.defer(function()
         local player = game:GetService("Players").LocalPlayer
         local playerGui = player:WaitForChild("PlayerGui")
         local gui = playerGui:FindFirstChild("VisionLibv2") or game:GetService("CoreGui"):FindFirstChild("VisionLibv2")
 
-        if gui then
+        if gui and gui:IsA("ScreenGui") then
             gui.ResetOnSpawn = false
             gui.IgnoreGuiInset = true
             gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -6001,7 +6000,6 @@ return function()
                 if v:IsA("Frame") or v:IsA("ScrollingFrame") then
                     v.Active = true
                     v.Selectable = true
-                    v.ClipsDescendants = false
                 elseif v:IsA("TextButton") then
                     v.AutoButtonColor = true
                     v.Active = true
@@ -6009,6 +6007,48 @@ return function()
                 elseif v:IsA("TextBox") then
                     v.ClearTextOnFocus = false
                 end
+            end
+
+            -- Add drag support like Orion
+            local function makeDraggable(frame)
+                local UIS = game:GetService("UserInputService")
+                local dragging, dragInput, dragStart, startPos
+
+                local function update(input)
+                    local delta = input.Position - dragStart
+                    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+                end
+
+                frame.InputBegan:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                        dragging = true
+                        dragStart = input.Position
+                        startPos = frame.Position
+
+                        input.Changed:Connect(function()
+                            if input.UserInputState == Enum.UserInputState.End then
+                                dragging = false
+                            end
+                        end)
+                    end
+                end)
+
+                frame.InputChanged:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                        dragInput = input
+                    end
+                end)
+
+                UIS.InputChanged:Connect(function(input)
+                    if input == dragInput and dragging then
+                        update(input)
+                    end
+                end)
+            end
+
+            local main = gui:FindFirstChild("GuiFrame")
+            if main then
+                makeDraggable(main)
             end
         end
     end)
