@@ -5983,7 +5983,6 @@ function Library:Destroy()
 end
 
 
-
 task.delay(2, function()
     local gui = game:GetService("CoreGui"):FindFirstChild("VisionLibv2") or game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("VisionLibv2")
     if gui then
@@ -5999,7 +5998,6 @@ task.delay(2, function()
 end)
 
 return function()
-    -- setup, then
     return Library
 end
 
