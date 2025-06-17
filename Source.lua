@@ -77,11 +77,11 @@ local Library = {
 
 pcall(function()
 	getgenv().VisionUILibrary:Destroy()
-)
+end)
 
 pcall(function()
 	getgenv().VisionUILibrary = Library
-)
+end)
 
 local LibSettings = {
 	DragSpeed = 0.07,
@@ -132,7 +132,7 @@ do
 	LibFrame["83"] = Instance.new("UIPadding", LibFrame["81"])
 	LibFrame["83"]["PaddingRight"] = UDim.new(0, 40)
 	LibFrame["83"]["PaddingBottom"] = UDim.new(0, 40)
-
+end
 
 function Library:Tween(object, options, callback)
 	local options = Library:PlaceDefaults({
@@ -143,7 +143,7 @@ function Library:Tween(object, options, callback)
 
 	callback = callback or function()
 		return
-	
+	end
 
 	local tweeninfo = TweenInfo.new(options.Length, options.Style, options.Direction)
 
@@ -154,10 +154,10 @@ function Library:Tween(object, options, callback)
 		ConnectionBin,
 		Tween.Completed:Connect(function()
 			callback()
-		)
+		end)
 	)
 	return Tween
-
+end
 
 function Library:ResizeCanvas(Tab)
 	local NumChild = 0
@@ -167,8 +167,8 @@ function Library:ResizeCanvas(Tab)
 		if v:IsA("Frame") then
 			NumChild = NumChild + 1
 			ChildOffset = ChildOffset + v.Size.Y.Offset
-		
-	
+		end
+	end
 
 	local NumChildOffset = NumChild * 5
 
@@ -178,7 +178,7 @@ function Library:ResizeCanvas(Tab)
 		Length = 0.5,
 		Goal = { CanvasSize = UDim2.new(0, 0, 0, CanvasSizeY) },
 	})
-
+end
 
 function Library:CalGradient(BaseColor, Diff)
 	local h, s, v = BaseColor:ToHSV()
@@ -192,10 +192,10 @@ function Library:CalGradient(BaseColor, Diff)
 		p1 = Color3.fromHSV(h, s, 0)
 	else
 		p1 = Color3.fromHSV(h, s, v - Diff)
-	
+	end
 
 	return ColorSequence.new({ ColorSequenceKeypoint.new(0.000, p0), ColorSequenceKeypoint.new(1.000, p1) })
-
+end
 
 function Library:ResizeSection(Section)
 	local SectionContainer = Section:WaitForChild("SectionContainer")
@@ -207,8 +207,8 @@ function Library:ResizeSection(Section)
 		if v:IsA("Frame") then
 			NumChild = NumChild + 1
 			ChildOffset = ChildOffset + v.Size.Y.Offset
-		
-	
+		end
+	end
 
 	local NumChildOffset = NumChild * 5
 
@@ -224,61 +224,61 @@ function Library:ResizeSection(Section)
 		Length = 0.5,
 		Goal = { Size = UDim2.new(0, 458, 0, SectionSize) },
 	})
-
+end
 
 function Library:PlaceDefaults(defaults, options)
 	defaults = defaults or {}
 	options = options or {}
 	for option, value in next, options do
 		defaults[option] = value
-	
+	end
 
 	return defaults
-
+end
 
 function Library:SetDragSpeed(DragSpeed)
 	if DragSpeed < 0 then
 		DragSpeed = 0
-	
+	end
 	if DragSpeed > 100 then
 		DragSpeed = 100
-	
+	end
 
 	LibSettings.DragSpeed = DragSpeed / 100
 
 	return
-
+end
 
 function Library:SetVolume(Volume)
 	if Volume < 0 then
 		Volume = 0
-	
+	end
 	if Volume > 100 then
 		Volume = 100
-	
+	end
 
 	LibSettings.SoundVolume = Volume / 100
 
 	return
-
+end
 
 function Library:SetHoverSound(SoundID)
 	LibSettings.HoverSound = SoundID
 
 	return
-
+end
 
 function Library:SetClickSound(SoundID)
 	LibSettings.ClickSound = SoundID
 
 	return
-
+end
 
 function Library:SetPopupSound(SoundID)
 	LibSettings.PopupSound = SoundID
 
 	return
-
+end
 
 function Library:PlaySound(SoundID)
 	local NotifSound = Instance.new("Sound")
@@ -292,10 +292,10 @@ function Library:PlaySound(SoundID)
 	task.spawn(function()
 		NotifSound.Ended:Wait()
 		NotifSound:Destroy()
-	)
+	end)
 
 	return
-
+end
 
 function Library:ToolTip(Text)
 	local ToolTip = {}
@@ -321,21 +321,21 @@ function Library:ToolTip(Text)
 			Vector2.new(ToolTip["2"].AbsoluteSize.X, ToolTip["2"].AbsoluteSize.Y)
 		)
 		ToolTip["2"]["Size"] = UDim2.new(0, (Bound.X + 28), 0, 18)
-	
+	end
 
 	local RSSync = RunService.Heartbeat:Connect(function()
 		ToolTip["2"].Position = UDim2.new(0, Mouse.X, 0, Mouse.Y)
-	)
+	end)
 
 	do
 		function ToolTip:Destroy()
 			RSSync:Disconnect()
 			ToolTip["2"]:Destroy()
-		
-	
+		end
+	end
 
 	return ToolTip
-
+end
 
 function Library:SetTheme(Theme)
 	Theme = Library:PlaceDefaults({
@@ -370,109 +370,109 @@ function Library:SetTheme(Theme)
 	for i, v in next, ThemeInstances.Main do
 		pcall(function()
 			v.Color = ThemeColor.Main
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.Main
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.MainTrue do
 		pcall(function()
 			v.Color = ThemeColor.MainTrue
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.MainTrue
-		)
+		end)
 		pcall(function()
 			v.ImageColor3 = ThemeColor.MainTrue
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.Secondary do
 		pcall(function()
 			v.Color = ThemeColor.Secondary
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.Secondary
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.SecondaryTrue do
 		pcall(function()
 			v.Color = ThemeColor.SecondaryTrue
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.SecondaryTrue
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.Tertiary do
 		pcall(function()
 			v.Color = ThemeColor.Tertiary
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.Tertiary
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.TertiaryTrue do
 		pcall(function()
 			v.Color = ThemeColor.TertiaryTrue
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.TertiaryTrue
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.Text do
 		pcall(function()
 			v.TextColor3 = ThemeColor.Text
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.PlaceholderText do
 		pcall(function()
 			v.PlaceholderColor3 = ThemeColor.PlaceholderText
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.Textbox do
 		pcall(function()
 			v.Color = ThemeColor.Textbox
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.Textbox
-		)
+		end)
 		pcall(function()
 			v.ImageColor3 = ThemeColor.Textbox
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.NavBar do
 		pcall(function()
 			v.Color = ThemeColor.NavBar
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.NavBar
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.Theme do
 		pcall(function()
 			v.Color = ThemeColor.Theme
-		)
+		end)
 		pcall(function()
 			v.BackgroundColor3 = ThemeColor.Theme
-		)
-	
+		end)
+	end
 
 	for i, v in next, ThemeInstances.ThemeTrue do
 		pcall(function()
 			if v:FindFirstChild("ToggleVal").Value == true then
 				v.BackgroundColor3 = ThemeColor.ThemeTrue
-			
-		)
-	
+			end
+		end)
+	end
 
 	task.spawn(function()
 		task.wait(0.2)
@@ -480,110 +480,110 @@ function Library:SetTheme(Theme)
 		for i, v in next, ThemeInstances.Main do
 			pcall(function()
 				v.Color = ThemeColor.Main
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Main
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.MainTrue do
 			pcall(function()
 				v.Color = ThemeColor.MainTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.MainTrue
-			)
+			end)
 			pcall(function()
 				v.ImageColor3 = ThemeColor.MainTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Secondary do
 			pcall(function()
 				v.Color = ThemeColor.Secondary
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Secondary
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.SecondaryTrue do
 			pcall(function()
 				v.Color = ThemeColor.SecondaryTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.SecondaryTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Tertiary do
 			pcall(function()
 				v.Color = ThemeColor.Tertiary
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Tertiary
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.TertiaryTrue do
 			pcall(function()
 				v.Color = ThemeColor.TertiaryTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.TertiaryTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Text do
 			pcall(function()
 				v.TextColor3 = ThemeColor.Text
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.PlaceholderText do
 			pcall(function()
 				v.PlaceholderColor3 = ThemeColor.PlaceholderText
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Textbox do
 			pcall(function()
 				v.Color = ThemeColor.Textbox
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Textbox
-			)
+			end)
 			pcall(function()
 				v.ImageColor3 = ThemeColor.Textbox
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.NavBar do
 			pcall(function()
 				v.Color = ThemeColor.NavBar
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.NavBar
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Theme do
 			pcall(function()
 				v.Color = ThemeColor.Theme
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Theme
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.ThemeTrue do
 			pcall(function()
 				if v:FindFirstChild("ToggleVal").Value == true then
 					v.BackgroundColor3 = ThemeColor.ThemeTrue
-				
-			)
-		
-	)
+				end
+			end)
+		end
+	end)
 
 	task.spawn(function()
 		task.wait(1)
@@ -591,110 +591,110 @@ function Library:SetTheme(Theme)
 		for i, v in next, ThemeInstances.Main do
 			pcall(function()
 				v.Color = ThemeColor.Main
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Main
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.MainTrue do
 			pcall(function()
 				v.Color = ThemeColor.MainTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.MainTrue
-			)
+			end)
 			pcall(function()
 				v.ImageColor3 = ThemeColor.MainTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Secondary do
 			pcall(function()
 				v.Color = ThemeColor.Secondary
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Secondary
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.SecondaryTrue do
 			pcall(function()
 				v.Color = ThemeColor.SecondaryTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.SecondaryTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Tertiary do
 			pcall(function()
 				v.Color = ThemeColor.Tertiary
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Tertiary
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.TertiaryTrue do
 			pcall(function()
 				v.Color = ThemeColor.TertiaryTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.TertiaryTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Text do
 			pcall(function()
 				v.TextColor3 = ThemeColor.Text
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.PlaceholderText do
 			pcall(function()
 				v.PlaceholderColor3 = ThemeColor.PlaceholderText
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Textbox do
 			pcall(function()
 				v.Color = ThemeColor.Textbox
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Textbox
-			)
+			end)
 			pcall(function()
 				v.ImageColor3 = ThemeColor.Textbox
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.NavBar do
 			pcall(function()
 				v.Color = ThemeColor.NavBar
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.NavBar
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Theme do
 			pcall(function()
 				v.Color = ThemeColor.Theme
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Theme
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.ThemeTrue do
 			pcall(function()
 				if v:FindFirstChild("ToggleVal").Value == true then
 					v.BackgroundColor3 = ThemeColor.ThemeTrue
-				
-			)
-		
-	)
+				end
+			end)
+		end
+	end)
 
 	task.spawn(function()
 		task.wait(5)
@@ -702,111 +702,111 @@ function Library:SetTheme(Theme)
 		for i, v in next, ThemeInstances.Main do
 			pcall(function()
 				v.Color = ThemeColor.Main
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Main
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.MainTrue do
 			pcall(function()
 				v.Color = ThemeColor.MainTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.MainTrue
-			)
+			end)
 			pcall(function()
 				v.ImageColor3 = ThemeColor.MainTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Secondary do
 			pcall(function()
 				v.Color = ThemeColor.Secondary
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Secondary
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.SecondaryTrue do
 			pcall(function()
 				v.Color = ThemeColor.SecondaryTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.SecondaryTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Tertiary do
 			pcall(function()
 				v.Color = ThemeColor.Tertiary
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Tertiary
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.TertiaryTrue do
 			pcall(function()
 				v.Color = ThemeColor.TertiaryTrue
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.TertiaryTrue
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Text do
 			pcall(function()
 				v.TextColor3 = ThemeColor.Text
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.PlaceholderText do
 			pcall(function()
 				v.PlaceholderColor3 = ThemeColor.PlaceholderText
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Textbox do
 			pcall(function()
 				v.Color = ThemeColor.Textbox
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Textbox
-			)
+			end)
 			pcall(function()
 				v.ImageColor3 = ThemeColor.Textbox
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.NavBar do
 			pcall(function()
 				v.Color = ThemeColor.NavBar
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.NavBar
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.Theme do
 			pcall(function()
 				v.Color = ThemeColor.Theme
-			)
+			end)
 			pcall(function()
 				v.BackgroundColor3 = ThemeColor.Theme
-			)
-		
+			end)
+		end
 
 		for i, v in next, ThemeInstances.ThemeTrue do
 			pcall(function()
 				if v:FindFirstChild("ToggleVal").Value == true then
 					v.BackgroundColor3 = ThemeColor.ThemeTrue
-				
-			)
-		
-	)
-
+				end
+			end)
+		end
+	end)
+end
 
 function Library:Create(options)
 	options = Library:PlaceDefaults({
@@ -815,7 +815,7 @@ function Library:Create(options)
 		ToggleKey = Enum.KeyCode.RightShift,
 		LoadedCallback = function()
 			return
-		,
+		end,
 		KeySystem = false,
 		Key = "123456",
 		MaxAttempts = 5,
@@ -848,8 +848,8 @@ function Library:Create(options)
 				Length = 0.3,
 				Goal = { Position = UDim2.new(0.5, 0, 0, Mouse.ViewSizeY - options.ToggledRelativeYOffset - 221) },
 			})
-		
-	)
+		end
+	end)
 
 	do
 		-- StarterGui.Vision Lib v2.GuiFrame
@@ -860,7 +860,7 @@ function Library:Create(options)
 		Gui["2"]["AnchorPoint"] = Vector2.new(0.5, 0.5)
 		Gui["2"]["BackgroundTransparency"] = 1
 		Gui["2"]["Size"] = UDim2.new(0, 498, 0, 496)
-		Gui["2"]["ClipsDescants"] = true
+		Gui["2"]["ClipsDescendants"] = true
 		Gui["2"]["BorderColor3"] = Color3.fromRGB(28, 43, 54)
 		Gui["2"]["Position"] = UDim2.new(0.5, 0, 0.5, 0)
 		Gui["2"]["Name"] = [[GuiFrame]]
@@ -965,7 +965,7 @@ function Library:Create(options)
 		Gui["18"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 		Gui["18"]["Size"] = UDim2.new(0, 498, 0, 452)
 		Gui["18"]["Name"] = [[MainFrame]]
-		Gui["18"]["ClipsDescants"] = true
+		Gui["18"]["ClipsDescendants"] = true
 
 		-- StarterGui.Vision Lib v2.GuiFrame.MainFrame.UICorner
 		Gui["19"] = Instance.new("UICorner", Gui["18"])
@@ -1009,7 +1009,7 @@ function Library:Create(options)
 		Gui["1c"]["Font"] = Enum.Font.GothamBold
 		Gui["1c"]["BackgroundTransparency"] = 1
 		Gui["1c"]["Position"] = UDim2.new(0, 14, 0, 5)
-	
+	end
 
 	function Library:ResizeTabCanvas()
 		local NumChild = 0
@@ -1019,8 +1019,8 @@ function Library:Create(options)
 			if v:IsA("TextButton") then
 				NumChild = NumChild + 1
 				ChildOffset = ChildOffset + v.Size.X.Offset
-			
-		
+			end
+		end
 
 		local NumChildOffset = NumChild * 7
 
@@ -1046,7 +1046,7 @@ function Library:Create(options)
 					Length = 0.1,
 					Goal = { TextColor3 = Color3.fromRGB(96, 96, 96) },
 				})
-			
+			end
 
 			if Gui["6"].CanvasPosition.X < MaxPos then
 				Library:Tween(Gui["16"], {
@@ -1058,9 +1058,9 @@ function Library:Create(options)
 					Length = 0.1,
 					Goal = { TextColor3 = Color3.fromRGB(96, 96, 96) },
 				})
-			
-		)
-	
+			end
+		end)
+	end
 
 	table.insert(
 		ConnectionBin,
@@ -1077,7 +1077,7 @@ function Library:Create(options)
 					Length = 0.1,
 					Goal = { TextColor3 = Color3.fromRGB(96, 96, 96) },
 				})
-			
+			end
 
 			if Gui["6"].CanvasPosition.X < MaxPos then
 				Library:Tween(Gui["16"], {
@@ -1089,8 +1089,8 @@ function Library:Create(options)
 					Length = 0.1,
 					Goal = { TextColor3 = Color3.fromRGB(96, 96, 96) },
 				})
-			
-		)
+			end
+		end)
 	)
 
 	do
@@ -1102,7 +1102,7 @@ function Library:Create(options)
 		StartAnimation["91"]["AnchorPoint"] = Vector2.new(0.5, 0.5)
 		StartAnimation["91"]["BackgroundTransparency"] = 1
 		StartAnimation["91"]["Size"] = UDim2.new(0, 498, 0, 498)
-		StartAnimation["91"]["ClipsDescants"] = true
+		StartAnimation["91"]["ClipsDescendants"] = true
 		StartAnimation["91"]["BorderColor3"] = Color3.fromRGB(28, 43, 54)
 		StartAnimation["91"]["Position"] = UDim2.new(0.5, 0, 0.5, 0)
 		StartAnimation["91"]["Name"] = [[StartAnimationFrame]]
@@ -1114,7 +1114,7 @@ function Library:Create(options)
 		StartAnimation["92"]["Size"] = UDim2.new(0, 310, 0, 0)
 		StartAnimation["92"]["Position"] = UDim2.new(0.186, 0, 0.167, 0)
 		StartAnimation["92"]["Name"] = [[Main]]
-		StartAnimation["92"]["ClipsDescants"] = true
+		StartAnimation["92"]["ClipsDescendants"] = true
 		StartAnimation["92"]["BorderSizePixel"] = 0
 
 		-- StarterGui.Vision Lib v2.StartAnimationFrame.Main.UIGradient
@@ -1232,7 +1232,7 @@ function Library:Create(options)
 		StartAnimation["9e"]["Font"] = Enum.Font.GothamMedium
 		StartAnimation["9e"]["BackgroundTransparency"] = 1
 		StartAnimation["9e"]["Position"] = UDim2.new(0, 98, 0, 49)
-	
+	end
 
 	local KeySystem = {}
 
@@ -1395,7 +1395,7 @@ function Library:Create(options)
 
 								KeySystem.KeyTextboxHover = true
 								Library:PlaySound(LibSettings.HoverSound)
-							)
+							end)
 						)
 
 						table.insert(
@@ -1407,7 +1407,7 @@ function Library:Create(options)
 								})
 
 								KeySystem.KeyTextboxHover = false
-							)
+							end)
 						)
 
 						table.insert(
@@ -1436,13 +1436,13 @@ function Library:Create(options)
 											Icon = "rbxassetid://11401835376",
 											Duration = 3,
 										})
-									
+									end
 
 									KeySystem["a4"]["Text"] = ""
 
 									if KeySystem.Attempts == 0 then
 										game.Players.LocalPlayer:Kick("Too many failed attempts")
-									
+									end
 
 									if KeySystem.KeyTextboxHover then
 										Library:Tween(KeySystem["a2"], {
@@ -1454,12 +1454,12 @@ function Library:Create(options)
 											Length = 0.2,
 											Goal = { Color = ThemeColor.SecondaryTrue },
 										})
-									
-								
-							)
+									end
+								end
+							end)
 						)
-					
-				
+					end
+				end
 
 				do
 					-- Others tween
@@ -1483,7 +1483,7 @@ function Library:Create(options)
 							Length = 0.7,
 							Goal = { TextTransparency = 1 },
 						})
-					
+					end
 
 					task.wait(1)
 
@@ -1518,8 +1518,8 @@ function Library:Create(options)
 							Length = 0.7,
 							Goal = { BackgroundTransparency = 0 },
 						})
-					
-				
+					end
+				end
 
 				if Gui.DiscordLink ~= nil then
 					-- StarterGui.Vision Lib v2.KeySystemFrame.Main.DiscordServerButton
@@ -1589,7 +1589,7 @@ function Library:Create(options)
 							Length = 0.7,
 							Goal = { TextTransparency = 0 },
 						})
-					
+					end
 
 					-- Handler
 					do
@@ -1602,7 +1602,7 @@ function Library:Create(options)
 								})
 
 								Library:PlaySound(LibSettings.HoverSound)
-							)
+							end)
 						)
 
 						table.insert(
@@ -1612,7 +1612,7 @@ function Library:Create(options)
 									Length = 0.2,
 									Goal = { Color = Color3.fromRGB(89, 102, 243) },
 								})
-							)
+							end)
 						)
 
 						table.insert(
@@ -1638,15 +1638,15 @@ function Library:Create(options)
 										Length = 0.2,
 										Goal = { Color = Color3.fromRGB(137, 145, 213) },
 									})
-								)
+								end)
 
 								pcall(function()
 									setclipboard(Gui.DiscordLink)
-								)
-							)
+								end)
+							end)
 						)
-					
-				
+					end
+				end
 
 				repeat
 					task.wait()
@@ -1688,7 +1688,7 @@ function Library:Create(options)
 							Length = 0.7,
 							Goal = { Transparency = 1 },
 						})
-					
+					end
 
 					if Gui.DiscordLink ~= nil then
 						do
@@ -1706,9 +1706,9 @@ function Library:Create(options)
 								Length = 0.7,
 								Goal = { TextTransparency = 1 },
 							})
-						
-					
-				
+						end
+					end
+				end
 
 				task.wait(1)
 
@@ -1728,13 +1728,13 @@ function Library:Create(options)
 
 					for i, v in next, KeyConnectionBin do
 						v:Disconnect()
-					
-				)
+					end
+				end)
 
 				KeyChecked = true
 			else
 				KeyChecked = true
-			
+			end
 
 			repeat
 				task.wait()
@@ -1823,9 +1823,9 @@ function Library:Create(options)
 				task.wait(1)
 
 				Library:SetTheme({})
-			)
-		)
-	
+			end)
+		end)
+	end
 
 	function Gui:Tab(options)
 		options = Library:PlaceDefaults({
@@ -1834,10 +1834,10 @@ function Library:Create(options)
 			Color = Color3.new(1, 0.290196, 0.290196),
 			ActivationCallback = function()
 				return
-			,
+			end,
 			DeativationCallback = function()
 				return
-			,
+			end,
 		}, options or {})
 
 		local Tab = {
@@ -1852,7 +1852,7 @@ function Library:Create(options)
 			repeat
 				task.wait()
 			until KeySystem.CorrectKey
-		
+		end
 
 		do
 			-- StarterGui.Vision Lib v2.GuiFrame.NavBar.TabButtonContainer.TabButton
@@ -1886,7 +1886,7 @@ function Library:Create(options)
 			Tab["b"]["Size"] = UDim2.new(0, 22, 0, 22)
 			Tab["b"]["BackgroundTransparency"] = 1
 			Tab["b"]["Position"] = UDim2.new(0.1071428582072258, 0, 0.1071428582072258, 0)
-		
+		end
 
 		-- Container
 		do
@@ -1916,7 +1916,7 @@ function Library:Create(options)
 			Tab["7d"] = Instance.new("UIListLayout", Tab["1d"])
 			Tab["7d"]["Padding"] = UDim.new(0, 5)
 			Tab["7d"]["SortOrder"] = Enum.SortOrder.LayoutOrder
-		
+		end
 
 		function Tab:Section(options)
 			options = Library:PlaceDefaults({
@@ -1985,13 +1985,13 @@ function Library:Create(options)
 				Section["7b"]["Color"] = ThemeColor.SecondaryTrue
 
 				ThemeInstances["SecondaryTrue"][#ThemeInstances["SecondaryTrue"] + 1] = Section["7b"]
-			
+			end
 
 			table.insert(
 				ConnectionBin,
 				Section["1e"]:GetPropertyChangedSignal("Size"):Connect(function()
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 			)
 
 			function Section:Button(options)
@@ -1999,7 +1999,7 @@ function Library:Create(options)
 					Name = "Button",
 					Callback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local Button = {
@@ -2056,7 +2056,7 @@ function Library:Create(options)
 					Button["79"]["Size"] = UDim2.new(0, 21, 0, 21)
 					Button["79"]["BackgroundTransparency"] = 1
 					Button["79"]["Position"] = UDim2.new(0.9219858050346375, 0, 0.1764705926179886, 0)
-				
+				end
 
 				-- Handler
 				do
@@ -2070,7 +2070,7 @@ function Library:Create(options)
 
 							Button.Hover = true
 							Library:PlaySound(LibSettings.HoverSound)
-						)
+						end)
 					)
 
 					table.insert(
@@ -2082,7 +2082,7 @@ function Library:Create(options)
 							})
 
 							Button.Hover = false
-						)
+						end)
 					)
 
 					table.insert(
@@ -2104,8 +2104,8 @@ function Library:Create(options)
 								do
 									task.spawn(function()
 										options.Callback()
-									)
-								
+									end)
+								end
 
 								task.wait(0.2)
 								Library:Tween(Button["79"], {
@@ -2123,11 +2123,11 @@ function Library:Create(options)
 										Length = 0.2,
 										Goal = { Color = ThemeColor.SecondaryTrue },
 									})
-								
-							
-						)
+								end
+							end
+						end)
 					)
-				
+				end
 
 				-- Methods
 				do
@@ -2140,8 +2140,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						Button["74"]:Destroy()
 						print(
@@ -2155,30 +2155,30 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
+						end)
+					end
 
 					table.insert(ControlsConnectionBin, Button.Connections)
 
 					function Button:SetName(name)
 						Button["77"]["Text"] = name
-					
-				
+					end
+				end
 
 				table.insert(
 					Button.Connections,
 					Button["74"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return Button
-			
+			end
 
 			function Section:Toggle(options)
 				options = Library:PlaceDefaults({
@@ -2186,7 +2186,7 @@ function Library:Create(options)
 					Default = false,
 					Callback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local Toggle = {
@@ -2276,13 +2276,13 @@ function Library:Create(options)
 					Toggle["2e"]["Color"] = ThemeColor.SecondaryTrue
 
 					ThemeInstances["SecondaryTrue"][#ThemeInstances["SecondaryTrue"] + 1] = Toggle["2e"]
-				
+				end
 
 				table.insert(
 					Toggle.Connections,
 					Toggle["24"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Handler
@@ -2297,7 +2297,7 @@ function Library:Create(options)
 
 							Library:PlaySound(LibSettings.HoverSound)
 							Toggle.Hover = true
-						)
+						end)
 					)
 
 					table.insert(
@@ -2309,7 +2309,7 @@ function Library:Create(options)
 							})
 
 							Toggle.Hover = false
-						)
+						end)
 					)
 
 					table.insert(
@@ -2334,11 +2334,11 @@ function Library:Create(options)
 										Length = 0.2,
 										Goal = { Color = ThemeColor.SecondaryTrue },
 									})
-								
-							
-						)
+								end
+							end
+						end)
 					)
-				
+				end
 
 				-- Methods
 				do
@@ -2351,8 +2351,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						Toggle["24"]:Destroy()
 						print(
@@ -2366,8 +2366,8 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
+						end)
+					end
 
 					table.insert(ControlsConnectionBin, Toggle.Connections)
 
@@ -2386,7 +2386,7 @@ function Library:Create(options)
 									Length = 0.2,
 									Goal = { BackgroundColor3 = ThemeColor.ThemeTrue },
 								})
-							)
+							end)
 						else
 							Toggle.Bool = false
 							Toggle["29"]["Value"] = false
@@ -2401,13 +2401,13 @@ function Library:Create(options)
 									Length = 0.2,
 									Goal = { BackgroundColor3 = Color3.fromRGB(177, 177, 177) },
 								})
-							)
-						
+							end)
+						end
 
 						task.spawn(function()
 							options.Callback(Toggle.Bool)
-						)
-					
+						end)
+					end
 
 					function Toggle:Set(bool)
 						if type(bool) == "boolean" then
@@ -2417,24 +2417,24 @@ function Library:Create(options)
 								Toggle:Toggle(false)
 							else
 								Toggle:Toggle(true)
-							
-						
-					
+							end
+						end
+					end
 
 					function Toggle:SetName(name)
 						Toggle["2d"]["Text"] = name
-					
-				
+					end
+				end
 
 				Toggle:Set(options.Default)
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return Toggle
-			
+			end
 
 			function Section:Slider(options)
 				options = Library:PlaceDefaults({
@@ -2444,7 +2444,7 @@ function Library:Create(options)
 					Default = 50,
 					Callback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local Slider = {
@@ -2554,13 +2554,13 @@ function Library:Create(options)
 					-- StarterGui.Vision Lib v2.GuiFrame.MainFrame.Container.SectionFrame.SectionContainer.Slider.TextBox
 					Slider["41"] = Instance.new("UICorner", Slider["3g"])
 					Slider["41"]["CornerRadius"] = UDim.new(0, 4)
-				
+				end
 
 				table.insert(
 					Slider.Connections,
 					Slider["36"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Handler
@@ -2577,7 +2577,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.MainTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -2589,7 +2589,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.SecondaryTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -2597,14 +2597,14 @@ function Library:Create(options)
 						Slider["3g"].MouseEnter:Connect(function()
 							Slider.TextboxHover = true
 							Library:PlaySound(LibSettings.HoverSound)
-						)
+						end)
 					)
 
 					table.insert(
 						Slider.Connections,
 						Slider["3g"].MouseLeave:Connect(function()
 							Slider.TextboxHover = false
-						)
+						end)
 					)
 
 					table.insert(
@@ -2614,7 +2614,7 @@ function Library:Create(options)
 
 							Library.Sliding = true
 							Library:PlaySound(LibSettings.ClickSound)
-						)
+						end)
 					)
 
 					table.insert(
@@ -2627,15 +2627,15 @@ function Library:Create(options)
 									Slider:SetValue(NumVal)
 								else
 									Slider["3g"].Text = Slider.OldVal
-								
-							)
+								end
+							end)
 
 							if not success then
 								Slider["3g"].Text = Slider.OldVal
-							
+							end
 
 							Library.Sliding = false
-						)
+						end)
 					)
 
 					table.insert(
@@ -2649,7 +2649,7 @@ function Library:Create(options)
 								Library.Sliding = true
 								MouseDown = true
 
-								while RunService.RerStepped:wait() and MouseDown do
+								while RunService.RenderStepped:wait() and MouseDown do
 									local percentage = math.clamp(
 										(Mouse.X - Slider["3a"].AbsolutePosition.X) / Slider["3a"].AbsoluteSize.X,
 										0,
@@ -2660,7 +2660,7 @@ function Library:Create(options)
 
 									if Value ~= Slider.OldVal then
 										options.Callback(Value)
-									
+									end
 									Slider.OldVal = Value
 									Slider["3g"]["Text"] = Value
 
@@ -2673,10 +2673,10 @@ function Library:Create(options)
 											),
 										},
 									})
-								
+								end
 								Library.Sliding = false
-							
-						)
+							end
+						end)
 					)
 
 					table.insert(
@@ -2684,10 +2684,10 @@ function Library:Create(options)
 						UserInputService.InputEnded:Connect(function(key)
 							if key.UserInputType == Enum.UserInputType.MouseButton1 then
 								MouseDown = false
-							
-						)
+							end
+						end)
 					)
-				
+				end
 
 				-- Methods
 				do
@@ -2702,11 +2702,11 @@ function Library:Create(options)
 						Slider["3g"]["Text"] = Value
 						Slider.OldVal = Value
 						options.Callback(Value)
-					
+					end
 
 					function Slider:SetName(name)
 						Slider["39"]["Text"] = name
-					
+					end
 
 					function Slider:Destroy()
 						table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, Slider.Connections))
@@ -2717,8 +2717,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						Slider["36"]:Destroy()
 						print(
@@ -2732,21 +2732,21 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
+						end)
+					end
 
 					table.insert(ControlsConnectionBin, Slider.Connections)
-				
+				end
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				Slider:SetValue(options.Default)
 
 				return Slider
-			
+			end
 
 			function Section:Keybind(options)
 				options = Library:PlaceDefaults({
@@ -2754,10 +2754,10 @@ function Library:Create(options)
 					Default = Enum.KeyCode.Return,
 					Callback = function()
 						return
-					,
+					end,
 					UpdateKeyCallback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local Keybind = {
@@ -2843,13 +2843,13 @@ function Library:Create(options)
 					local keybindText = string.gsub(tostring(Keybind.Keybind), "Enum.KeyCode.", "")
 
 					Keybind["60"]["Text"] = keybindText
-				
+				end
 
 				table.insert(
 					Keybind.Connections,
 					Keybind["59"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Methods
@@ -2863,7 +2863,7 @@ function Library:Create(options)
 							})
 
 							Library:PlaySound(LibSettings.HoverSound)
-						)
+						end)
 					)
 
 					table.insert(
@@ -2873,7 +2873,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.SecondaryTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -2883,7 +2883,7 @@ function Library:Create(options)
 							Keybind.Focused = true
 
 							Keybind["60"]["Text"] = "..."
-						)
+						end)
 					)
 
 					table.insert(
@@ -2893,8 +2893,8 @@ function Library:Create(options)
 								if input.KeyCode == Keybind.Keybind then
 									pcall(function()
 										options.Callback()
-									)
-								
+									end)
+								end
 
 								if Keybind.Focused then
 									Keybind.Keybind = input.KeyCode
@@ -2902,19 +2902,19 @@ function Library:Create(options)
 									Keybind["60"]["Text"] = keybindText
 									pcall(function()
 										options.UpdateKeyCallback(input.KeyCode)
-									)
+									end)
 
 									Keybind.Focused = false
-								
-							
-						)
+								end
+							end
+						end)
 					)
 
 					-- Methods
 					do
 						function Keybind:SetName(name)
 							Keybind["5c"]["Text"] = name
-						
+						end
 
 						function Keybind:Destroy()
 							table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, Keybind.Connections))
@@ -2925,8 +2925,8 @@ function Library:Create(options)
 								pcall(function()
 									v:Disconnect()
 									Disconnected = Disconnected + 1
-								)
-							
+								end)
+							end
 
 							Keybind["59"]:Destroy()
 							print(
@@ -2940,20 +2940,20 @@ function Library:Create(options)
 							task.spawn(function()
 								Library:ResizeSection(Section["1e"])
 								Library:ResizeCanvas(Tab["1d"])
-							)
-						
+							end)
+						end
 
 						table.insert(ControlsConnectionBin, Keybind.Connections)
-					
-				
+					end
+				end
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return Keybind
-			
+			end
 
 			function Section:SmallTextbox(options)
 				options = Library:PlaceDefaults({
@@ -2961,7 +2961,7 @@ function Library:Create(options)
 					Default = "Text",
 					Callback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local Textbox = {
@@ -3055,13 +3055,13 @@ function Library:Create(options)
 					Textbox["37"]["VerticalAlignment"] = Enum.VerticalAlignment.Center
 					Textbox["37"]["HorizontalAlignment"] = Enum.HorizontalAlignment.Right
 					Textbox["37"]["SortOrder"] = Enum.SortOrder.LayoutOrder
-				
+				end
 
 				table.insert(
 					Textbox.Connections,
 					Textbox["2e"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Handler
@@ -3075,7 +3075,7 @@ function Library:Create(options)
 							})
 
 							Library:PlaySound(LibSettings.HoverSound)
-						)
+						end)
 					)
 
 					table.insert(
@@ -3085,7 +3085,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.SecondaryTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -3095,7 +3095,7 @@ function Library:Create(options)
 							Textbox["34"].Text = ""
 
 							Library.Sliding = true
-						)
+						end)
 					)
 
 					table.insert(
@@ -3105,8 +3105,8 @@ function Library:Create(options)
 
 							task.spawn(function()
 								options.Callback(Textbox["34"].Text)
-							)
-						)
+							end)
+						end)
 					)
 
 					table.insert(
@@ -3129,20 +3129,20 @@ function Library:Create(options)
 									Length = 0.2,
 									Goal = { Size = UDim2.new(0, (Bound.X + 18), 0, 21) },
 								})
-							
-						)
+							end
+						end)
 					)
-				
+				end
 
 				-- Methods
 				do
 					function Textbox:SetText(Text)
 						Textbox["34"].Text = Text
-					
+					end
 
 					function Textbox:SetName(Name)
 						Textbox["31"].Text = Name
-					
+					end
 
 					function Textbox:Destroy()
 						table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, Textbox.Connections))
@@ -3153,8 +3153,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						Textbox["2e"]:Destroy()
 						print(
@@ -3168,11 +3168,11 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
+						end)
+					end
 
 					table.insert(ControlsConnectionBin, Textbox.Connections)
-				
+				end
 
 				Textbox:SetText(options.Default)
 
@@ -3194,16 +3194,16 @@ function Library:Create(options)
 							Length = 0.2,
 							Goal = { Size = UDim2.new(0, (Bound.X + 18), 0, 21) },
 						})
-					
-				
+					end
+				end
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return Textbox
-			
+			end
 
 			function Section:BigTextbox(options)
 				options = Library:PlaceDefaults({
@@ -3213,7 +3213,7 @@ function Library:Create(options)
 					ResetOnFocus = false,
 					Callback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local BigTextbox = {
@@ -3321,13 +3321,13 @@ function Library:Create(options)
 					BigTextbox["71"]["Name"] = [[Open]]
 					BigTextbox["71"]["Position"] = UDim2.new(0, 390, 0, 7)
 					BigTextbox["71"]["BackgroundTransparency"] = 1
-				
+				end
 
 				table.insert(
 					BigTextbox.Connections,
 					BigTextbox["66"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				table.insert(
@@ -3337,7 +3337,7 @@ function Library:Create(options)
 							Length = 0.2,
 							Goal = { Size = UDim2.new(0, 423, 0, (BigTextbox["6b"].Size.Y.Offset + 42)) },
 						})
-					)
+					end)
 				)
 
 				-- Handler
@@ -3351,7 +3351,7 @@ function Library:Create(options)
 							})
 
 							Library:PlaySound(LibSettings.HoverSound)
-						)
+						end)
 					)
 
 					table.insert(
@@ -3361,7 +3361,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.SecondaryTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -3370,10 +3370,10 @@ function Library:Create(options)
 							Library:PlaySound(LibSettings.ClickSound)
 							if options.ResetOnFocus then
 								BigTextbox["6f"].Text = ""
-							
+							end
 
 							Library.Sliding = true
-						)
+						end)
 					)
 
 					table.insert(
@@ -3383,7 +3383,7 @@ function Library:Create(options)
 
 							task.spawn(function()
 								options.Callback(BigTextbox["6f"].Text)
-							)
+							end)
 
 							local Val
 							repeat
@@ -3405,7 +3405,7 @@ function Library:Create(options)
 								Length = 0.2,
 								Goal = { Size = UDim2.new(0, 423, 0, (BigTextbox["6b"].Size.Y.Offset + 42)) },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -3417,19 +3417,19 @@ function Library:Create(options)
 								BigTextbox["6f"].Size = UDim2.new(0, 389, 0, (BigTextbox["6f"].TextBounds.Y + 10))
 								BigTextbox["6b"].Size = UDim2.new(0, 407, 0, (BigTextbox["6f"].TextBounds.Y + 16))
 							until Val == BigTextbox["6f"].TextBounds.Y
-						)
+						end)
 					)
-				
+				end
 
 				-- Methods
 				do
 					function BigTextbox:SetText(Text)
 						BigTextbox["6f"].Text = Text
-					
+					end
 
 					function BigTextbox:SetName(Name)
 						BigTextbox["69"].Text = Name
-					
+					end
 
 					function BigTextbox:Destroy()
 						table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, BigTextbox.Connections))
@@ -3440,8 +3440,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						BigTextbox["66"]:Destroy()
 						print(
@@ -3455,21 +3455,21 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
+						end)
+					end
 
 					table.insert(ControlsConnectionBin, BigTextbox.Connections)
-				
+				end
 
 				BigTextbox:SetText(options.Default)
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return BigTextbox
-			
+			end
 
 			function Section:Dropdown(options)
 				options = Library:PlaceDefaults({
@@ -3477,7 +3477,7 @@ function Library:Create(options)
 					Items = {},
 					Callback = function(item)
 						return
-					,
+					end,
 				}, options or {})
 
 				local Dropdown = {
@@ -3495,7 +3495,7 @@ function Library:Create(options)
 					Dropdown["46"] = Instance.new("Frame", Section["21"])
 					Dropdown["46"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 					Dropdown["46"]["Size"] = UDim2.new(0, 423, 0, 34)
-					Dropdown["46"]["ClipsDescants"] = true
+					Dropdown["46"]["ClipsDescendants"] = true
 					Dropdown["46"]["Position"] = UDim2.new(0, 0, 0, 117)
 					Dropdown["46"]["Name"] = [[Dropdown]]
 
@@ -3627,13 +3627,13 @@ function Library:Create(options)
 					Dropdown["5f"]["Thickness"] = 7
 
 					ThemeInstances["SecondaryTrue"][#ThemeInstances["SecondaryTrue"] + 1] = Dropdown["5f"]
-				
+				end
 
 				table.insert(
 					Dropdown.Connections,
 					Dropdown["46"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Handler
@@ -3648,7 +3648,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.MainTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
@@ -3660,21 +3660,21 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.SecondaryTrue },
 							})
-						)
+						end)
 					)
 
 					table.insert(
 						Dropdown.Connections,
 						Dropdown["5e"].MouseEnter:Connect(function()
 							Dropdown.SearchHover = true
-						)
+						end)
 					)
 
 					table.insert(
 						Dropdown.Connections,
 						Dropdown["5e"].MouseLeave:Connect(function()
 							Dropdown.SearchHover = false
-						)
+						end)
 					)
 
 					table.insert(
@@ -3684,8 +3684,8 @@ function Library:Create(options)
 								for i, v in pairs(Dropdown["4b"]:GetChildren()) do
 									if v:IsA("Frame") then
 										v.Visible = true
-									
-								
+									end
+								end
 							else
 								for i, v in pairs(Dropdown["4b"]:GetChildren()) do
 									if v:IsA("Frame") then
@@ -3693,13 +3693,13 @@ function Library:Create(options)
 											v.Visible = true
 										else
 											v.Visible = false
-										
-									
-								
-							
+										end
+									end
+								end
+							end
 
 							Dropdown:ResizeContainer()
-						)
+						end)
 					)
 
 					table.insert(
@@ -3722,7 +3722,7 @@ function Library:Create(options)
 										Length = 0.2,
 										Goal = { Color = ThemeColor.SecondaryTrue },
 									})
-								
+								end
 
 								do
 									if Dropdown.ContainerOpened and not Dropdown.SearchHover then
@@ -3743,8 +3743,8 @@ function Library:Create(options)
 											for i, v in pairs(Dropdown["4b"]:GetChildren()) do
 												if v:IsA("Frame") and v.Visible == true then
 													NumChild = NumChild + 1
-												
-											
+												end
+											end
 
 											local FrameYOffset = 27 * NumChild + 4 * NumChild + 38 + 23
 
@@ -3752,15 +3752,15 @@ function Library:Create(options)
 												Length = 0.5,
 												Goal = { Size = UDim2.fromOffset(423, FrameYOffset) },
 											})
-										
-									
+										end
+									end
 
 									task.wait(0.7)
-								
-							
-						)
+								end
+							end
+						end)
 					)
-				
+				end
 
 				-- Methods
 				do
@@ -3771,8 +3771,8 @@ function Library:Create(options)
 							for i, v in pairs(Dropdown["4b"]:GetChildren()) do
 								if v:IsA("Frame") and v.Visible == true then
 									NumChild = NumChild + 1
-								
-							
+								end
+							end
 
 							local FrameYOffset = 27 * NumChild + 4 * NumChild + 38 + 23
 
@@ -3780,8 +3780,8 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Size = UDim2.fromOffset(423, FrameYOffset) },
 							})
-						
-					
+						end
+					end
 
 					function Dropdown:AddItem(value)
 						local DropdownOption = {
@@ -3826,7 +3826,7 @@ function Library:Create(options)
 							DropdownOption["50"]["Color"] = ThemeColor.MainTrue
 
 							ThemeInstances["MainTrue"][#ThemeInstances["MainTrue"] + 1] = DropdownOption["50"]
-						
+						end
 
 						table.insert(
 							ConnectionBin,
@@ -3838,7 +3838,7 @@ function Library:Create(options)
 									Length = 0.5,
 									Goal = { Color = ThemeColor.SecondaryTrue },
 								})
-							)
+							end)
 						)
 
 						table.insert(
@@ -3850,7 +3850,7 @@ function Library:Create(options)
 									Length = 0.5,
 									Goal = { Color = ThemeColor.MainTrue },
 								})
-							)
+							end)
 						)
 
 						table.insert(
@@ -3865,7 +3865,7 @@ function Library:Create(options)
 
 									task.spawn(function()
 										options.Callback(DropdownOption.CallbackVal)
-									)
+									end)
 
 									if DropdownOption.Hover then
 										Library:Tween(DropdownOption["50"], {
@@ -3877,7 +3877,7 @@ function Library:Create(options)
 											Length = 0.2,
 											Goal = { Color = ThemeColor.SecondaryTrue },
 										})
-									
+									end
 
 									Dropdown.SelectedItem = DropdownOption.CallbackVal
 									Dropdown["5b"].Text = tostring(Dropdown.SelectedItem)
@@ -3898,8 +3898,8 @@ function Library:Create(options)
 										Length = 0.2,
 										Goal = { Size = UDim2.new(0, (Dropdown["5b"].TextBounds.X + 14), 0, 21) },
 									})
-								
-							)
+								end
+							end)
 						)
 
 						if Dropdown.SelectedItem == nil then
@@ -3922,22 +3922,22 @@ function Library:Create(options)
 								Length = 0.2,
 								Goal = { Size = UDim2.new(0, (Dropdown["5b"].TextBounds.X + 14), 0, 21) },
 							})
-						
+						end
 
 						Dropdown:ResizeContainer()
-					
+					end
 
 					function Dropdown:Clear()
 						for i, v in pairs(Dropdown["4b"]:GetChildren()) do
 							if v:IsA("Frame") then
 								v:Destroy()
-							
-						
+							end
+						end
 
 						local FrameYOffset = 34 + 4
 
 						Dropdown:ResizeContainer()
-					
+					end
 
 					function Dropdown:UpdateList(options)
 						options = Library:PlaceDefaults({
@@ -3949,23 +3949,23 @@ function Library:Create(options)
 							for i, v in pairs(Dropdown["4b"]:GetChildren()) do
 								if v:IsA("Frame") then
 									v:Destroy()
-								
-							
-						
+								end
+							end
+						end
 
 						for i, v in pairs(options.Items) do
 							Dropdown:AddItem(v)
-						
-					
-				
+						end
+					end
+				end
 
 				do
 					task.spawn(function()
 						for i, v in pairs(options.Items) do
 							Dropdown:AddItem(v)
-						
-					)
-				
+						end
+					end)
+				end
 
 				function Dropdown:Destroy()
 					table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, Dropdown.Connections))
@@ -3976,8 +3976,8 @@ function Library:Create(options)
 						pcall(function()
 							v:Disconnect()
 							Disconnected = Disconnected + 1
-						)
-					
+						end)
+					end
 
 					Dropdown["46"]:Destroy()
 					print(
@@ -3991,18 +3991,18 @@ function Library:Create(options)
 					task.spawn(function()
 						Library:ResizeSection(Section["1e"])
 						Library:ResizeCanvas(Tab["1d"])
-					)
-				
+					end)
+				end
 
 				table.insert(ControlsConnectionBin, Dropdown.Connections)
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return Dropdown
-			
+			end
 
 			function Section:Label(options)
 				options = Library:PlaceDefaults({
@@ -4054,13 +4054,13 @@ function Library:Create(options)
 					Label["7c"]["Color"] = ThemeColor.MainTrue
 
 					ThemeInstances["MainTrue"][#ThemeInstances["MainTrue"] + 1] = Label["7c"]
-				
+				end
 
 				table.insert(
 					Label.Connections,
 					Label["78"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Methods
@@ -4075,7 +4075,7 @@ function Library:Create(options)
 							Label["78"]["Size"] = UDim2.new(0, 423, 0, Label["7b"].TextBounds.Y + 21)
 							Label["7b"]["Size"] = UDim2.new(0, 398, 0, Label["7b"].TextBounds.Y + 21)
 						until Val == Label["7b"].TextBounds.Y
-					
+					end
 
 					function Label:Destroy()
 						table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, Label.Connections))
@@ -4086,8 +4086,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						Label["78"]:Destroy()
 						print(
@@ -4101,11 +4101,11 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
+						end)
+					end
 
 					table.insert(ControlsConnectionBin, Label.Connections)
-				
+				end
 
 				task.spawn(function()
 					local Val
@@ -4115,15 +4115,15 @@ function Library:Create(options)
 						Label["78"]["Size"] = UDim2.new(0, 423, 0, Label["7b"].TextBounds.Y + 21)
 						Label["7b"]["Size"] = UDim2.new(0, 398, 0, Label["7b"].TextBounds.Y + 21)
 					until Val == Label["7b"].TextBounds.Y
-				)
+				end)
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 
 				return Label
-			
+			end
 
 			function Section:Colorpicker(options)
 				options = Library:PlaceDefaults({
@@ -4131,7 +4131,7 @@ function Library:Create(options)
 					DefaultColor = Color3.new(1, 1, 1),
 					Callback = function()
 						return
-					,
+					end,
 				}, options or {})
 
 				local Colorpicker = {
@@ -4148,7 +4148,7 @@ function Library:Create(options)
 					Colorpicker["7d"] = Instance.new("Frame", Section["21"])
 					Colorpicker["7d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 					Colorpicker["7d"]["Size"] = UDim2.new(0, 423, 0, 34)
-					Colorpicker["7d"]["ClipsDescants"] = true
+					Colorpicker["7d"]["ClipsDescendants"] = true
 					Colorpicker["7d"]["BorderColor3"] = Color3.fromRGB(28, 43, 54)
 					Colorpicker["7d"]["Position"] = UDim2.new(0, 0, 1.1666666269302368, 0)
 					Colorpicker["7d"]["Name"] = [[Colorpicker]]
@@ -4470,13 +4470,13 @@ function Library:Create(options)
 					Colorpicker["9d"]["Name"] = [[ToggleDetector]]
 					Colorpicker["9d"]["Font"] = Enum.Font.SourceSans
 					Colorpicker["9d"]["BackgroundTransparency"] = 1
-				
+				end
 
 				table.insert(
 					Colorpicker.Connections,
 					Colorpicker["7d"]:GetPropertyChangedSignal("Size"):Connect(function()
 						Library:ResizeSection(Section["1e"])
-					)
+					end)
 				)
 
 				-- Methods
@@ -4505,11 +4505,11 @@ function Library:Create(options)
 								options.Callback(
 									Color3.fromHSV(Colorpicker.ColorH, Colorpicker.ColorS, Colorpicker.ColorV)
 								)
-							
-						)
+							end
+						end)
 						Colorpicker.OldVal = Color3.fromHSV(Colorpicker.ColorH, Colorpicker.ColorS, Colorpicker.ColorV)
 						Colorpicker:updateTextboxVal()
-					
+					end
 
 					function Colorpicker:SetColor(Color)
 						local H, S, V = Color:ToHSV()
@@ -4529,7 +4529,7 @@ function Library:Create(options)
 							Goal = { Position = UDim2.new(Colorpicker.ColorS, 0, VisualColorY, 0) },
 						})
 						Colorpicker:UpdateColorPicker()
-					
+					end
 
 					function Colorpicker:updateTextboxVal()
 						Colorpicker["8e"]["Text"] = math.floor(Colorpicker.ColorH * 256)
@@ -4537,7 +4537,7 @@ function Library:Create(options)
 						Colorpicker["97"]["Text"] = math.floor(Colorpicker.ColorV * 256)
 
 						Colorpicker["9b"].Text = Colorpicker.OldVal:ToHex()
-					
+					end
 
 					function Colorpicker:Destroy()
 						table.remove(ControlsConnectionBin, table.find(ControlsConnectionBin, Colorpicker.Connections))
@@ -4548,8 +4548,8 @@ function Library:Create(options)
 							pcall(function()
 								v:Disconnect()
 								Disconnected = Disconnected + 1
-							)
-						
+							end)
+						end
 
 						Colorpicker["7d"]:Destroy()
 						print(
@@ -4563,9 +4563,9 @@ function Library:Create(options)
 						task.spawn(function()
 							Library:ResizeSection(Section["1e"])
 							Library:ResizeCanvas(Tab["1d"])
-						)
-					
-				
+						end)
+					end
+				end
 
 				-- Handler
 				do
@@ -4578,7 +4578,7 @@ function Library:Create(options)
 							})
 
 							Library:PlaySound(LibSettings.HoverSound)
-						)
+						end)
 					)
 
 					table.insert(
@@ -4588,7 +4588,7 @@ function Library:Create(options)
 								Length = 0.5,
 								Goal = { Color = ThemeColor.SecondaryTrue },
 							})
-						)
+						end)
 					)
 
 					Colorpicker.ColorH = 1
@@ -4643,8 +4643,8 @@ function Library:Create(options)
 									Length = 0.5,
 									Goal = { Size = UDim2.fromOffset(423, 35) },
 								})
-							
-						)
+							end
+						end)
 					)
 
 					local SelectingColor
@@ -4657,10 +4657,10 @@ function Library:Create(options)
 
 								if SelectingColor then
 									SelectingColor:Disconnect()
-								
+								end
 
 								Library.Sliding = true
-								SelectingColor = RunService.RerStepped:Connect(function()
+								SelectingColor = RunService.RenderStepped:Connect(function()
 									local ColorX = (
 										math.clamp(
 											Mouse.X - Colorpicker["84"].AbsolutePosition.X,
@@ -4679,9 +4679,9 @@ function Library:Create(options)
 									Colorpicker.ColorS = ColorX
 									Colorpicker.ColorV = 1 - ColorY
 									Colorpicker:UpdateColorPicker()
-								)
-							
-						)
+								end)
+							end
+						end)
 					)
 
 					table.insert(
@@ -4692,10 +4692,10 @@ function Library:Create(options)
 
 								if SelectingColor then
 									SelectingColor:Disconnect()
-								
+								end
 								Library.Sliding = false
-							
-						)
+							end
+						end)
 					)
 
 					local SelectingHue
@@ -4708,10 +4708,10 @@ function Library:Create(options)
 
 								if SelectingHue then
 									SelectingHue:Disconnect()
-								
+								end
 
 								Library.Sliding = true
-								SelectingHue = RunService.RerStepped:Connect(function()
+								SelectingHue = RunService.RenderStepped:Connect(function()
 									local HueY = (
 										1
 										- math.clamp(
@@ -4733,9 +4733,9 @@ function Library:Create(options)
 									Colorpicker.ColorH = 1 - HueY
 
 									Colorpicker:UpdateColorPicker()
-								)
-							
-						)
+								end)
+							end
+						end)
 					)
 
 					table.insert(
@@ -4746,27 +4746,27 @@ function Library:Create(options)
 
 								if SelectingHue then
 									SelectingHue:Disconnect()
-								
+								end
 								Library.Sliding = false
-							
-						)
+							end
+						end)
 					)
 
 					local function checkHex(hex)
 						local success, result = pcall(function()
 							return Color3.fromHex(hex)
-						)
+						end)
 
 						return success
-					
+					end
 
 					local function checkValidHSV(hsv)
 						if hsv >= 0 and hsv <= 1 then
 							return true
 						else
 							return false
-						
-					
+						end
+					end
 
 					table.insert(
 						Colorpicker.Connections,
@@ -4777,8 +4777,8 @@ function Library:Create(options)
 								Colorpicker:SetColor(Color3.fromHex(HexCode))
 							else
 								Colorpicker:updateTextboxVal()
-							
-						)
+							end
+						end)
 					)
 
 					table.insert(
@@ -4796,13 +4796,13 @@ function Library:Create(options)
 									)
 								else
 									Colorpicker:updateTextboxVal()
-								
-							)
+								end
+							end)
 
 							if not success then
 								Colorpicker:updateTextboxVal()
-							
-						)
+							end
+						end)
 					)
 
 					table.insert(
@@ -4820,13 +4820,13 @@ function Library:Create(options)
 									)
 								else
 									Colorpicker:updateTextboxVal()
-								
-							)
+								end
+							end)
 
 							if not success then
 								Colorpicker:updateTextboxVal()
-							
-						)
+							end
+						end)
 					)
 
 					table.insert(
@@ -4844,32 +4844,32 @@ function Library:Create(options)
 									)
 								else
 									Colorpicker:updateTextboxVal()
-								
-							)
+								end
+							end)
 
 							if not success then
 								Colorpicker:updateTextboxVal()
-							
-						)
+							end
+						end)
 					)
 
 					table.insert(ControlsConnectionBin, Colorpicker.Connections)
-				
+				end
 
 				Colorpicker:SetColor(options.DefaultColor)
 
 				task.spawn(function()
 					Library:ResizeSection(Section["1e"])
 					Library:ResizeCanvas(Tab["1d"])
-				)
+				end)
 				return Colorpicker
-			
+			end
 
 			--[[
 			function Section:Template(options)
 				options = Library:PlaceDefaults({
 					Name = "Template",
-					Callback = function() return 
+					Callback = function() return end
 				}, options or {})
 
 				local Template = {
@@ -4877,24 +4877,24 @@ function Library:Create(options)
 				}
 
 				do
-				
+				end
 
 				-- Handler
 				do
-				
+				end
 
 				-- Methods
 				do
 					
-				
+				end
 
 				return Template
-			
+			end
 			]]
 			--
 
 			return Section
-		
+		end
 
 		-- Handler
 		do
@@ -4918,7 +4918,7 @@ function Library:Create(options)
 
 						if rot == 405 then
 							rot = 45
-						
+						end
 
 						local tweeninfo = TweenInfo.new(0.4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 						local tween = TweenService:Create(Tab["a"], tweeninfo, { Rotation = rot })
@@ -4928,9 +4928,9 @@ function Library:Create(options)
 
 						if Tab["a"].Rotation == 360 then
 							Tab["a"].Rotation = 0
-						
+						end
 					until Tab.Hover == false
-				)
+				end)
 			)
 
 			table.insert(
@@ -4944,7 +4944,7 @@ function Library:Create(options)
 					})
 
 					Tab.Hover = false
-				)
+				end)
 			)
 
 			table.insert(
@@ -4976,22 +4976,22 @@ function Library:Create(options)
 							})
 
 							Gui.Hidden = false
-						
+						end
 
 						Tab:Activate()
-					
-				)
+					end
+				end)
 			)
 
 			function Tab:Activate()
 				if not Tab.Active then
 					if Gui.CurrentTab ~= nil then
 						Gui.CurrentTab:Deactivate(Tab.Index)
-					
+					end
 
 					task.spawn(function()
 						options.ActivationCallback()
-					)
+					end)
 
 					task.spawn(function()
 						local Color = options.Color
@@ -4999,7 +4999,7 @@ function Library:Create(options)
 						local NewV = v - 0.75
 						if NewV < 0 then
 							NewV = 0
-						
+						end
 
 						local p0 = Color3.fromHSV(h, s, v)
 						local p1 = Color3.fromHSV(h, s, NewV)
@@ -5022,16 +5022,16 @@ function Library:Create(options)
 							Goal = { Value = p1 },
 						}, function()
 							TweenCompleted = true
-						)
+						end)
 
 						repeat
 							Tab["a"]["Color"] = ColorSequence.new({
 								ColorSequenceKeypoint.new(0, defaultP0.Value),
 								ColorSequenceKeypoint.new(1, defaultP1.Value),
 							})
-							RunService.RerStepped:Wait()
+							RunService.RenderStepped:Wait()
 						until TweenCompleted
-					)
+					end)
 
 					Tab.Active = true
 
@@ -5041,7 +5041,7 @@ function Library:Create(options)
 
 							if rot == 405 then
 								rot = 45
-							
+							end
 
 							local tweeninfo = TweenInfo.new(0.4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 							local tween = TweenService:Create(Tab["a"], tweeninfo, { Rotation = rot })
@@ -5051,9 +5051,9 @@ function Library:Create(options)
 
 							if Tab["a"].Rotation == 360 then
 								Tab["a"].Rotation = 0
-							
-						
-					)
+							end
+						end
+					end)
 
 					if Gui.CurrentTabIndex < Tab.Index then
 						task.spawn(function()
@@ -5072,7 +5072,7 @@ function Library:Create(options)
 								Length = 0.3,
 								Goal = { Position = UDim2.new(0, 0, 0, 35) },
 							})
-						)
+						end)
 					else
 						task.spawn(function()
 							task.wait(0.3)
@@ -5090,13 +5090,13 @@ function Library:Create(options)
 								Length = 0.3,
 								Goal = { Position = UDim2.new(0, 0, 0, 35) },
 							})
-						)
-					
+						end)
+					end
 
 					Gui.CurrentTabIndex = Tab.Index
 					Gui.CurrentTab = Tab
-				
-			
+				end
+			end
 
 			function Tab:Deactivate(newtabindex)
 				if Tab.Active then
@@ -5104,7 +5104,7 @@ function Library:Create(options)
 
 					task.spawn(function()
 						options.DeativationCallback()
-					)
+					end)
 
 					task.spawn(function()
 						local Color = options.Color
@@ -5112,7 +5112,7 @@ function Library:Create(options)
 						local NewV = v - 0.75
 						if NewV < 0 then
 							NewV = 0
-						
+						end
 
 						local p0 = Color3.fromHSV(h, s, v)
 						local p1 = Color3.fromHSV(h, s, NewV)
@@ -5135,16 +5135,16 @@ function Library:Create(options)
 							Goal = { Value = Color3.fromRGB(31, 31, 31) },
 						}, function()
 							TweenCompleted = true
-						)
+						end)
 
 						repeat
 							Tab["a"]["Color"] = ColorSequence.new({
 								ColorSequenceKeypoint.new(0, defaultP0.Value),
 								ColorSequenceKeypoint.new(1, defaultP1.Value),
 							})
-							RunService.RerStepped:Wait()
+							RunService.RenderStepped:Wait()
 						until TweenCompleted
-					)
+					end)
 
 					if Gui.CurrentTabIndex < newtabindex then
 						task.spawn(function()
@@ -5160,7 +5160,7 @@ function Library:Create(options)
 
 							task.wait(0.3)
 							Tab["1d"]["Visible"] = false
-						)
+						end)
 					else
 						task.spawn(function()
 							Library:Tween(Gui["1c"], {
@@ -5175,20 +5175,20 @@ function Library:Create(options)
 
 							task.wait(0.3)
 							Tab["1d"]["Visible"] = false
-						)
-					
-				
-			
+						end)
+					end
+				end
+			end
 
 			if Gui.CurrentTab == nil then
 				Tab:Activate()
-			
-		
+			end
+		end
 
 		Library:ResizeTabCanvas()
 
 		return Tab
-	
+	end
 
 	-- Handler
 	do
@@ -5201,7 +5201,7 @@ function Library:Create(options)
 							Vector2.new(Mouse.X - Gui["2"].AbsolutePosition.X, Mouse.Y - Gui["2"].AbsolutePosition.Y)
 
 						while
-							RunService.RerStepped:wait()
+							RunService.RenderStepped:wait()
 							and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
 						do
 							if not Library.Sliding then
@@ -5220,27 +5220,27 @@ function Library:Create(options)
 									Direction = Enum.EasingDirection.InOut,
 									Length = LibSettings.DragSpeed,
 								})
-							
-						
-					
-				
-			)
+							end
+						end
+					end
+				end
+			end)
 		)
 
 		table.insert(
 			ConnectionBin,
 			Gui["2"].MouseEnter:Connect(function()
 				Library.MainFrameHover = true
-			)
+			end)
 		)
 
 		table.insert(
 			ConnectionBin,
 			Gui["2"].MouseLeave:Connect(function()
 				Library.MainFrameHover = false
-			)
+			end)
 		)
-	
+	end
 
 	-- Nav Clock
 	do
@@ -5253,26 +5253,26 @@ function Library:Create(options)
 
 				if string.len(sec) < 2 then
 					sec = "0" .. tostring(sec)
-				
+				end
 
 				if string.len(min) < 2 then
 					min = "0" .. tostring(min)
-				
+				end
 
 				if string.len(hour) < 2 then
 					hour = "0" .. tostring(hour)
-				
+				end
 
 				Gui["5"]["Text"] = hour .. ":" .. min .. ":" .. sec
-			
-		)
-	
+			end
+		end)
+	end
 
 	-- Toggle Handler
 	function Gui:Toggled(bool)
 		if not Library.Loaded then
 			return
-		
+		end
 
 		Gui.TweeningToggle = true
 		if bool == nil then
@@ -5292,7 +5292,7 @@ function Library:Create(options)
 				})
 
 				task.wait(1)
-			
+			end
 		elseif bool then
 			Gui["2"].Visible = true
 			Library:Tween(Gui["2"], {
@@ -5309,10 +5309,10 @@ function Library:Create(options)
 
 			task.wait(1)
 			Gui["2"].Visible = false
-		
+		end
 
 		Gui.TweeningToggle = false
-	
+	end
 
 	function Gui:TaskBarOnly(bool)
 		if bool then
@@ -5339,8 +5339,8 @@ function Library:Create(options)
 			})
 
 			Gui.Hidden = false
-		
-	
+		end
+	end
 
 	do
 		table.insert(
@@ -5349,18 +5349,18 @@ function Library:Create(options)
 				if input.KeyCode == Gui.ToggleKey then
 					if not Gui.TweeningToggle then
 						Gui:Toggled()
-					
-				
-			)
+					end
+				end
+			end)
 		)
-	
+	end
 
 	function Gui:ChangeTogglekey(key)
 		Gui.ToggleKey = key
-	
+	end
 
 	return Gui
-
+end
 
 function Library:Notify(options)
 	options = Library:PlaceDefaults({
@@ -5371,7 +5371,7 @@ function Library:Notify(options)
 		Duration = 5,
 		Callback = function()
 			return
-		,
+		end,
 	}, options or {})
 
 	local Notification = {}
@@ -5381,10 +5381,10 @@ function Library:Notify(options)
 		Notification["84"] = Instance.new("Frame", LibFrame["81"])
 		Notification["84"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 		Notification["84"]["Size"] = UDim2.new(0, 257, 0, 0)
-		Notification["84"]["ClipsDescants"] = true
+		Notification["84"]["ClipsDescendants"] = true
 		Notification["84"]["Position"] = UDim2.new(0, -41, 0, 0)
 		Notification["84"]["Name"] = [[Notif]]
-		Notification["84"]["ClipsDescants"] = true
+		Notification["84"]["ClipsDescendants"] = true
 		Notification["84"]["BorderSizePixel"] = 0
 
 		-- StarterGui.Vision Lib v2.NotifFrame.Notif.UICorner
@@ -5485,7 +5485,7 @@ function Library:Notify(options)
 		Notification["8f"]["Color"] = ThemeColor.Main
 
 		ThemeInstances["Main"][#ThemeInstances["Main"] + 1] = Notification["8f"]
-	
+	end
 
 	do
 		task.spawn(function()
@@ -5508,7 +5508,7 @@ function Library:Notify(options)
 				Goal = { Size = UDim2.new(1, 0, 1, 0) },
 			}, function()
 				Completed = true
-			)
+			end)
 
 			repeat
 				task.wait()
@@ -5521,7 +5521,7 @@ function Library:Notify(options)
 				Goal = { Size = UDim2.new(0, 257, 0, 0) },
 			}, function()
 				Completed = true
-			)
+			end)
 
 			repeat
 				task.wait()
@@ -5529,9 +5529,9 @@ function Library:Notify(options)
 
 			options.Callback()
 			Notification["84"]:Destroy()
-		)
-	
-
+		end)
+	end
+end
 
 function Library:ForceNotify(options)
 	options = Library:PlaceDefaults({
@@ -5542,7 +5542,7 @@ function Library:ForceNotify(options)
 		Duration = 5,
 		Callback = function()
 			return
-		,
+		end,
 	}, options or {})
 
 	local Notification = {}
@@ -5552,10 +5552,10 @@ function Library:ForceNotify(options)
 		Notification["84"] = Instance.new("Frame", LibFrame["81"])
 		Notification["84"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
 		Notification["84"]["Size"] = UDim2.new(0, 257, 0, 0)
-		Notification["84"]["ClipsDescants"] = true
+		Notification["84"]["ClipsDescendants"] = true
 		Notification["84"]["Position"] = UDim2.new(0, -41, 0, 0)
 		Notification["84"]["Name"] = [[Notif]]
-		Notification["84"]["ClipsDescants"] = true
+		Notification["84"]["ClipsDescendants"] = true
 		Notification["84"]["BorderSizePixel"] = 0
 
 		-- StarterGui.Vision Lib v2.NotifFrame.Notif.UICorner
@@ -5656,7 +5656,7 @@ function Library:ForceNotify(options)
 		Notification["8f"]["Color"] = ThemeColor.Main
 
 		ThemeInstances["Main"][#ThemeInstances["Main"] + 1] = Notification["8f"]
-	
+	end
 
 	do
 		task.spawn(function()
@@ -5673,7 +5673,7 @@ function Library:ForceNotify(options)
 				Goal = { Size = UDim2.new(1, 0, 1, 0) },
 			}, function()
 				Completed = true
-			)
+			end)
 
 			Library:PlaySound(options.Sound)
 
@@ -5688,7 +5688,7 @@ function Library:ForceNotify(options)
 				Goal = { Size = UDim2.new(0, 257, 0, 0) },
 			}, function()
 				Completed = true
-			)
+			end)
 
 			repeat
 				task.wait()
@@ -5696,9 +5696,9 @@ function Library:ForceNotify(options)
 
 			options.Callback()
 			Notification["84"]:Destroy()
-		)
-	
-
+		end)
+	end
+end
 
 function Library:Popup(options)
 	local Prompt = {}
@@ -5708,7 +5708,7 @@ function Library:Popup(options)
 		Options = { "Yes", "No" },
 		Callback = function()
 			return
-		,
+		end,
 	}, options or {})
 
 	do
@@ -5722,7 +5722,7 @@ function Library:Popup(options)
 		Prompt["1e9"]["Visible"] = true
 		Prompt["1e9"]["Name"] = [[Prompt]]
 		Prompt["1e9"]["AnchorPoint"] = Vector2.new(0.5, 0.5)
-		Prompt["1e9"]["ClipsDescants"] = true
+		Prompt["1e9"]["ClipsDescendants"] = true
 
 		-- StarterGui.Vision Lib v2.Prompt.Prompt
 		Prompt["1ea"] = Instance.new("Frame", Prompt["1e9"])
@@ -5733,7 +5733,7 @@ function Library:Popup(options)
 		Prompt["1ea"]["Size"] = UDim2.new(0, 0, 0, 0)
 		Prompt["1ea"]["Position"] = UDim2.new(0.5, 0, 0.5, 0)
 		Prompt["1ea"]["Name"] = [[Prompt]]
-		Prompt["1ea"]["ClipsDescants"] = true
+		Prompt["1ea"]["ClipsDescendants"] = true
 
 		-- StarterGui.Vision Lib v2.Prompt.Prompt.UICorner
 		Prompt["1eb"] = Instance.new("UICorner", Prompt["1ea"])
@@ -5813,7 +5813,7 @@ function Library:Popup(options)
 		Prompt["1fa"]["Name"] = [[Title]]
 		Prompt["1fa"]["BackgroundTransparency"] = 1
 		Prompt["1fa"]["Position"] = UDim2.new(0, 0, 0, 12)
-	
+	end
 
 	do
 		Library:Tween(Prompt["1e9"], {
@@ -5835,7 +5835,7 @@ function Library:Popup(options)
 		})
 
 		Library:PlaySound(LibSettings.PopupSound)
-	
+	end
 
 	do
 		for i, text in next, options.Options do
@@ -5911,27 +5911,27 @@ function Library:Popup(options)
 						do
 							task.spawn(function()
 								options.Callback(text)
-							)
-						
+							end)
+						end
 
 						task.spawn(function()
 							task.wait(1.5)
 
 							Prompt["1e9"]:Destroy()
-						)
-					)
+						end)
+					end)
 				)
 
 				table.insert(
 					ConnectionBin,
 					PromptOption["1ef"].MouseEnter:Connect(function()
 						Library:PlaySound(LibSettings.HoverSound)
-					)
+					end)
 				)
-			
-		
-	
-
+			end
+		end
+	end
+end
 
 function Library:Destroy()
 	local DestroyedConnection = 0
@@ -5945,8 +5945,8 @@ function Library:Destroy()
 			v:Disconnect()
 
 			DestroyedConnection += 1
-		)
-	
+		end)
+	end
 
 	for i, controls in next, ControlsConnectionBin do
 		for i, event in next, controls do
@@ -5956,9 +5956,9 @@ function Library:Destroy()
 				event:Disconnect()
 
 				DestroyedControlConection += 1
-			)
-		
-	
+			end)
+		end
+	end
 
 	print(
 		"Disconnected "
@@ -5980,31 +5980,38 @@ function Library:Destroy()
 
 	LibFrame["1"]:Destroy()
 	LibFrame["2"]:Destroy()
+end
 
 
-task.delay(2, function()
-    local gui = game:GetService("CoreGui"):FindFirstChild("VisionLibv2") or game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("VisionLibv2")
-    if gui and gui:IsA("ScreenGui") then
-        gui.Enabled = true
-        gui.ResetOnSpawn = false
-        gui.IgnoreGuiInset = true
 
-        for _, v in pairs(gui:GetDescendants()) do
-            if v:IsA("Frame") or v:IsA("ScrollingFrame") then
-                v.Active = true
-                v.Selectable = true
-                v.ClipsDescendants = false
-            elseif v:IsA("TextButton") then
-                v.AutoButtonColor = true
-                v.Active = true
-                v.Selectable = true
-            elseif v:IsA("TextBox") then
-                v.ClearTextOnFocus = false
-            end
-        end
-    end
-end)
 
 return function()
+    task.defer(function()
+        local player = game:GetService("Players").LocalPlayer
+        local playerGui = player:WaitForChild("PlayerGui")
+        local gui = playerGui:FindFirstChild("VisionLibv2") or game:GetService("CoreGui"):FindFirstChild("VisionLibv2")
+
+        if gui then
+            gui.ResetOnSpawn = false
+            gui.IgnoreGuiInset = true
+            gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+            gui.Parent = playerGui
+
+            for _, v in pairs(gui:GetDescendants()) do
+                if v:IsA("Frame") or v:IsA("ScrollingFrame") then
+                    v.Active = true
+                    v.Selectable = true
+                    v.ClipsDescendants = false
+                elseif v:IsA("TextButton") then
+                    v.AutoButtonColor = true
+                    v.Active = true
+                    v.Selectable = true
+                elseif v:IsA("TextBox") then
+                    v.ClearTextOnFocus = false
+                end
+            end
+        end
+    end)
+
     return Library
 end
