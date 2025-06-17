@@ -5982,17 +5982,24 @@ function Library:Destroy()
 	LibFrame["2"]:Destroy()
 end
 
-
 task.delay(2, function()
     local gui = game:GetService("CoreGui"):FindFirstChild("VisionLibv2") or game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("VisionLibv2")
     if gui then
         gui.Enabled = true
-        gui.IgnoreGuiInset = true
-        local mainFrame = gui:FindFirstChild("GuiFrame")
-        if mainFrame then
-            mainFrame.Active = true
-            mainFrame.Selectable = true
-            -- Removed mainFrame.Modal = true (invalid for Frame)
+        if gui:IsA("ScreenGui") then
+            gui.ResetOnSpawn = false
+            gui.IgnoreGuiInset = true
+        end
+
+        for _, v in pairs(gui:GetDescendants()) do
+            if v:IsA("Frame") or v:IsA("ScrollingFrame") then
+                v.Active = true
+                v.Selectable = true
+            end
+            if v:IsA("TextButton") then
+                v.AutoButtonColor = true
+                v.Modal = false
+            end
         end
     end
 end)
