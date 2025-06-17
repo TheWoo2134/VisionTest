@@ -5992,7 +5992,7 @@ task.delay(2, function()
         if mainFrame then
             mainFrame.Active = true
             mainFrame.Selectable = true
-            mainFrame.Modal = true
+            -- Removed mainFrame.Modal = true (invalid for Frame)
         end
     end
 end)
@@ -6000,4 +6000,3 @@ end)
 return function()
     return Library
 end
-
